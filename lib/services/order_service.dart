@@ -32,11 +32,11 @@ class OrderService {
     return _firestore
         .collection(_collection)
         .where('userId', isEqualTo: userId)
-        .orderBy('orderDate', descending: true)
         .snapshots()
         .map((snapshot) => snapshot.docs
             .map((doc) => order_model.Order.fromMap(doc.data()))
-            .toList());
+            .toList()
+            ..sort((a, b) => b.orderDate.compareTo(a.orderDate))); // Sort in memory
   }
 
   // Get order by ID
@@ -60,6 +60,34 @@ class OrderService {
       return true;
     } catch (e) {
       print('Error updating order status: $e');
+      return false;
+    }
+  }
+
+  // Update entire order (items, totalPrice, status)
+  Future<bool> updateOrder(String orderId, order_model.Order updatedOrder) async {
+    try {
+      // Ensure orderId matches and preserve immutable fields
+      Map<String, dynamic> updateData = updatedOrder.toMap();
+      updateData['orderId'] = orderId; // Ensure consistency
+      updateData['userId'] = updatedOrder.userId;
+      updateData['orderDate'] = Timestamp.fromDate(updatedOrder.orderDate);
+
+      await _firestore.collection(_collection).doc(orderId).update(updateData);
+      return true;
+    } catch (e) {
+      print('Error updating order: $e');
+      return false;
+    }
+  }
+
+  // Delete order
+  Future<bool> deleteOrder(String orderId) async {
+    try {
+      await _firestore.collection(_collection).doc(orderId).delete();
+      return true;
+    } catch (e) {
+      print('Error deleting order: $e');
       return false;
     }
   }

@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import '../providers/cart_provider.dart';
 import '../models/cart_item.dart';
+import 'order_history_page.dart';
 
 class CartPage extends StatelessWidget {
   @override
@@ -344,8 +345,13 @@ class CartPage extends StatelessWidget {
               onPressed: () {
                 Navigator.of(context).pop();
                 Navigator.of(context).pop(); // Go back to home
+                // Navigate to order history
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => OrderHistoryPage()),
+                );
               },
-              child: Text('OK'),
+              child: Text('View Order History'),
             ),
           ],
         );

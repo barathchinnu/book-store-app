@@ -8,6 +8,7 @@ import '../auth_service.dart';
 import 'book_detail_page.dart';
 import 'cart_page.dart';
 import 'add_book_page.dart';
+import 'order_history_page.dart';
 
 class BookStoreHomePage extends StatefulWidget {
   @override
@@ -50,6 +51,15 @@ class _BookStoreHomePageState extends State<BookStoreHomePage> {
       appBar: AppBar(
         title: Text('BookStore'),
         actions: [
+          IconButton(
+            icon: Icon(Icons.history),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => OrderHistoryPage()),
+              );
+            },
+          ),
           Consumer<CartProvider>(
             builder: (context, cart, child) {
               return Stack(

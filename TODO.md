@@ -1,24 +1,18 @@
-# TODO: Implement Order Storage in Database
+# Update Order Implementation TODO
 
-## Steps to Complete:
+## Plan Summary
+Implement update order functionality to allow users to modify order items and quantities for pending orders.
 
-1. **Create Order Model** (`lib/models/order.dart`) ✅
-   - Define Order class with fields: orderId, userId, items (List<CartItem>), totalPrice, orderDate, status
-   - Add toMap() and fromMap() methods for Firestore
+## Steps
+- [x] Add `updateOrder` method to `lib/services/order_service.dart`
+- [x] Create new `lib/pages/order_edit_page.dart` for editing order details
+- [x] Update `lib/pages/order_history_page.dart` to add edit button and navigation
+- [x] Test the update functionality - Ensure database updates on save
+- [ ] Verify Firebase security rules and error handling
 
-2. **Create Order Service** (`lib/services/order_service.dart`) ✅
-   - Add placeOrder() method to save orders to Firestore
-   - Add getUserOrders() method to fetch user's orders
-
-3. **Update CartProvider** (`lib/providers/cart_provider.dart`) ✅
-   - Add placeOrder() method that uses OrderService and clears cart
-
-4. **Update CartPage** (`lib/pages/cart_page.dart`) ✅
-   - Modify checkout dialog to call placeOrder() and show success message
-
-5. **Update BookService** (`lib/services/book_service.dart`) ✅
-   - Add updateStockAfterOrder() method to reduce book stock
-
-6. **Test Implementation**
-   - Add items to cart, checkout, verify order in Firestore
-   - Check stock updates
+## Progress
+- [x] Plan confirmed by user
+- [x] updateOrder method added to OrderService
+- [x] OrderEditPage created
+- [x] OrderHistoryPage updated with edit button
+- [x] Testing completed - Database update verified
